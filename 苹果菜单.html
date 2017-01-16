@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+	<style type="text/css" media="screen">
+		*{margin: 0;padding: 0;}
+		div{
+			position: absolute;
+			left: 0px;
+			bottom: 0px;
+			text-align: center;
+			background-color: red;
+			width: 100%;
+		}
+		img{width: 64px;}
+	</style>
+</head>
+<body>
+	<div>
+		<img src="images/1.png" alt="">
+		<img src="images/2.png" alt="">
+		<img src="images/3.png" alt="">
+		<img src="images/4.png" alt="">
+		<img src="images/5.png" alt="">
+	</div>
+	<script>
+		window.onload = function(){
+			var maxDistance = 200;
+			var imageList = document.getElementsByTagName('img');
+
+			document.onmousemove = function(ev){
+				//求出每一个图片的中心点坐标
+				//和当前的鼠标的坐标的距离
+				var e = ev || event;
+                var mouseX = e.clientX;
+                var mouseY = e.clientY;
+
+                for (var i = 0; i < imageList.length; i++) {
+                	//计算出每一个图片的中心点坐标
+                	//x坐标等于自身左边边框父视图左边的距离（offsetLeft）+ 自身宽度的一半（offsetWidth）/2
+                	var imgX = imageList[i].offsetLeft + imageList[i].offsetWidth/2;
+                    //y坐标 等于父视图的offsetTop + 自身高度的一半
+                	var imgY = imageList[i].parentNode.offsetTop + imageList[i].offsetHeight/2;
+
+                	//计算鼠标的位置和图片中心点的位置之间的距离
+                	var distance = Math.sqrt(Math.pow(mouseX-imgX,2) + Math.pow(mouseY-imgY,2));
+
+                	//超出200 按200计算
+                	distance = Math.min(maxDistance,distance);
+
+                	var scaleValue = (maxDistance - distance)/maxDistance*64;
+
+                	imageList[i].style.width =( 64 + scaleValue) + 'px';
+                }
+			}
+
+		}
+	</script>
+</body>
+</html>

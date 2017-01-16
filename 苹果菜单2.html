@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+    <style type="text/css" media="screen">
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    
+    div {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        text-align: center;
+        background-color: #f00;
+        width: 100%
+    }
+    
+    img {
+        width: 64px;
+    }
+    </style>
+</head>
+
+<body>
+    <div>
+        <img src="images/1.png" alt="">
+        <img src="images/2.png" alt="">
+        <img src="images/3.png" alt="">
+        <img src="images/4.png" alt="">
+        <img src="images/5.png" alt="">
+    </div>
+    <script>
+    window.onload = function() {
+        var maxDistance = 200;
+        var imgList = document.getElementsByClassName('img');
+
+        document.onmousemove = function(ev) {
+            var e = ev || event;
+            var mouseX = e.clientX;
+            var mouseY = e.clientY;
+
+            for (var i = 0; i < imgList.length; i++) {
+                var imgX = imgList[i].offsetLeft + imgList[i].offsetWidth / 2;
+                var imgY = imgList[i].parentNode.offsetTop + imgList[i].offsetHeight / 2;
+                var distance = Math.sqrt(Math.pow(mouseX - imgX, 2) + Math.pow(mouseY - imgY, 2));
+                distance = Math.min(maxDistance, distance);
+                var scaleValue = (maxDistance - distance) / maxDistance * 64;
+                imgList[i].style.width = (64 + scaleValue) + 'px';
+            }
+        }
+    }
+    </script>
+</body>
+
+</html>

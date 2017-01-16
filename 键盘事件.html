@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+    <input type="text" name="">
+	<script>
+		var inputElement = document.getElementsByTagName('input')[0];
+		//当一个键按下
+		inputElement.onkeydown = function(ev){
+			console.log('onkeydown');
+			var e = ev || event;
+			//按下的每一个字符都对应一个编码，通过e.keyCode来获取编码
+			//onkeydown不区分大小写，只是按下事件,若获取字符编码，要在keypress中
+			console.log(e.keyCode);
+			
+		}
+		//控制键 Ctrl tab 不会产生press，press针对输入字符
+		inputElement.onkeypress = function(ev){
+			console.log('onkeypress');
+			var e = ev || event;
+			console.log(e.keyCode);
+			//根据字符的编码来获取字符
+			var char = String.fromCharCode(e.keyCode);
+			console.log(char);
+
+			// 可以通过e.ctrlKey，如果为真，则代表Ctrl按键按下
+			//          e.shift        true     shift键按下
+			//          e.altKey       true       alt键按下
+			//          e.tabKey       true
+			//          e.windowKey    true
+			//可以使用这几个标志，来组合按键操作，譬如按下Ctrl + enter发送
+			// 常用的keyCode  13 回车enter
+			// Ctrl 17
+			// Alt 18
+			// Shift 16
+			// Esc 27
+			// 空格 32
+			// Windows 91
+			// Delete 46
+			//方向键： 左上右下------------ 37 38 39 40
+					
+			if (e.ctrlKey && e.keyCode == 13) {
+				inputElement.value = '';
+				alert('发送');
+			}
+
+		}
+		inputElement.onkeyup = function(ev){
+			console.log('onkeyup');
+		}
+	</script>
+</body>
+</html>

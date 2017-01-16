@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+    <style type="text/css" media="screen">
+    .box {
+        width: 100px;
+        height: 100px;
+        background-color: #f00;
+        position: absolute;
+        bottom: 0;
+        left: 500px
+    }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+    <script>
+    window.onload = function() {
+        var oDiv = document.getElementsByClassName('box')[0];
+
+        document.onkeydown = function(ev) {
+            var e = ev || event;
+            var code = e.keyCode;
+
+            var currentTop = getElementStyleValue(oDiv, 'top');
+            var currentLeft = getElementStyleValue(oDiv, 'left');
+            switch (code) {
+                case 37:
+                    oDiv.style.left = (parseInt(currentLeft) - 10) + 'px';
+                    break;
+                case 38:
+                    oDiv.style.top = (parseInt(currentTop) - 10) + 'px';
+                    break;
+                case 39:
+                    oDiv.style.left = (parseInt(currentLeft) + 10) + 'px';
+                    break;
+                case 40:
+                    oDiv.style.top = (parseInt(currentTop) + 10) + 'px';
+                  
+            }
+        }
+        function getElementStyleValue(obj,attr){
+        	if (obj.currentStyle) {
+        		return obj.currentStyle[attr];
+        	}
+        	else
+        	{
+        		return getComputedStyle(obj,null)[attr];
+        	}
+        };
+    }
+    </script>
+</body>
+
+</html>

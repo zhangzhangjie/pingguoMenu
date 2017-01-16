@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+	<style type="text/css" media="screen">
+		*{margin: 0;padding: 0;}
+		div{
+			width: 100px;
+			height: 100px;
+			background-color: blue;
+			position: absolute;
+			right: 0px;
+			top: 0px;
+		}
+	</style>
+</head>
+<body style=" height:2000px;">
+	<div>
+		
+	</div>
+	<script>
+		window.onload = function(){
+			//获取可视区域的大小
+			var clientHeight = document.documentElement.clientHeight;
+			//计算自身的大小
+			var divElement = document.getElementsByTagName('div')[0];
+			var selfHeight = divElement.clientHeight;
+
+			divElement.style.top = (clientHeight-selfHeight)/2 + 'px';
+
+            //针对文档的滚动做处理
+			document.onscroll = function(ev){
+				var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+				var endPosition = scrollTop + (clientHeight - selfHeight)/2;
+				//设置最终的位置
+				// divElement.style.top = endPosition + 'px';
+				//把最终的位置使用对象包括起来，并把对象作为参数传递进去
+				startMove(divElement,{top:endPosition + 'px'})
+			}
+			function startMove(element,endObject){
+				var currentValue = getStyleValue(element,'top');
+				var endValue = endObject.top;
+				var speed = 0;
+				if (parseInt(currentValue) < parseInt(endValue)) {
+					speed = 10;
+				}else{
+					speed = -10;
+				}
+
+                clearInterval(element.timer);
+                element.timer = setInterval(function(){
+                    //1:获取当前的位置
+                    var current = getStyleValue(element,'top');
+
+                    //2:加上speed
+                    element.style.top = (parseInt(current)+speed)+'px';
+
+                    //3:判断是否已经移动到目的地
+                    if (speed > 0) {
+                    	//向下走
+                    	if (parseInt(element.style.top) >= parseInt(endValue)) {
+                    		//已经移动完毕
+                    		element.style.top = endValue;
+                    		clearInterval(element.timer);
+                    	}
+                    }else{
+                    	//向上走
+                    	if (parseInt(element.style.top) <= parseInt(endValue)) {
+                    		element.style.top = endValue;
+                    		clearInterval(element.timer);
+                    	}
+                    }
+                },10)
+			}
+			function getStyleValue(element,styleName){
+				if (element.currentStyle) {
+					return element.currentStyle[styleName];
+				}else{
+					return getComputedStyle(element,null)[styleName];
+				}
+			}
+		}
+	</script>
+</body>
+</html>

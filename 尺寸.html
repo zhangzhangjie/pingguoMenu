@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+	<style type="text/css" media="screen">
+		*{margin: 0px;padding: 0px;}
+		.box{width: 150px;height: 150px;border: 1px solid red;}
+	</style>
+</head>
+<body>
+	<div class="box"></div>
+
+	<script>
+	    //屏幕的尺寸
+		console.log(window.screen.width);
+		console.log(window.screen.height);
+
+		//浏览器距离屏幕左上角的尺寸
+		console.log(window.screenLeft);
+		console.log(window.screenTop);
+
+		//浏览器窗口的大小，包含浏览器工具栏，菜单，边框的大小
+		console.log(window.outerHeight);
+		console.log(window.outerWidth);
+
+		//不包含工具栏 边框等等于可视区域大小
+		console.log(window.innerHeight);
+		console.log(window.innerWidth);
+
+		//窗口可视区域大小
+		console.log(document.documentElement.clientWidth);
+		console.log(document.documentElement.clientHeight);
+
+		//文档大小
+		var documentWidth = Math.max(document.documentElement.scrollWidth,document.documentElement.clientWidth);
+		var documentHeight = Math.max(document.documentElement.scrollHeight,document.documentElement.clientHeight);
+		console.log(documentWidth);
+		console.log(documentHeight);
+
+		//元素本身大小，包含边框
+		var divElement = document.getElementsByClassName('box')[0];
+		console.log(divElement.offsetWidth);
+		console.log(divElement.offsetHeight);
+
+		//元素本身的大小，不包含边框
+		console.log(divElement.clientWidth);
+		console.log(divElement.clientHeight);
+
+		//元素距离自己的offsetParent(自己的第一个设置了position为非stastic的祖先容器，到body为止)的距离
+		//offsetLeft 和 offsetTop 只读
+		console.log(divElement.offsetLeft);
+		console.log(divElement.offsetTop);
+
+		//文档滚动时，内容滚出的大小
+		var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+		var scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
+
+		console.log( scrollTop );
+		console.log(scrollLeft);
+
+		//鼠标事件相关的坐标
+		divElement.onclick = function(ev){
+			var e = ev || event;
+
+			//鼠标点击时，相对于可视区域热点偏移
+			console.log(e.clientX);
+			console.log(e.clientY);
+
+			//鼠标点击时相对于文档左上角的偏移
+			console.log( e.pageX );
+			console.log( e.pageY );
+
+			//相对于屏幕
+			console.log(e.screenX);
+			console.log(e.screenY);
+
+			//鼠标点击时，相对于点击元素左上角的偏移
+			console.log(e.offsetX);
+			console.log(e.offsetY);
+		}
+
+	</script>
+</body>
+</html>

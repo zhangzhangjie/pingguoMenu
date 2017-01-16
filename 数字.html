@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+    <label for="" id="result">输入的内容：</label>
+    <br>
+	<input type="text" name="" value="">
+	<label id="error"></label>
+	<script>
+		var inputElement = document.getElementsByTagName('input')[0];
+		var resultLable = document.getElementById('result');
+		var errorLable = document.getElementById('error');
+
+		inputElement.onkeydown = function(ev){
+			var e = ev || event;
+			if ( e.ctrlKey && e.keyCode == 13) {
+				var value = inputElement.value;
+				inputElement.value = '';
+				resultLable.innerHTML = '输入的内容：'+value;
+			}
+		}
+		inputElement.onkeypress = function(ev){
+			var e = ev || event;
+			var char = String.fromCharCode(e.keyCode);
+			//判断字符是不是数字，正则判断
+			var re = /\d/;
+			if ( re.test(char)) {
+				errorLable.innerHTML = '';
+				return true;
+			}else{
+				errorLable.innerHTML = '只允许输入数字';
+				//阻止系统的默认行为也就是让输入框不接受该字符
+				return false;
+			}
+		}
+
+	</script>
+</body>
+</html>
